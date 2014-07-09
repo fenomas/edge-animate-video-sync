@@ -5,7 +5,7 @@ Demo of how to animate a web page so that it moves in sync with an embedded Yout
 
 
 [Here's a live version of the demo!  
-![demo screenshot](http://andyhall.github.io/edge-animate-video-sync/images/edge-video-sync.png)](http://andyhall.github.io/edge-animate-video-sync/)
+![demo screenshot](http://andyhall.github.io/edge-animate-video-sync/images/edge-video-sync.png)](http://aphall.com/random/edge-video-sync/)
 
 
 

@@ -33,7 +33,7 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // aliases for commonl
          var site_url = 'http://aphall.com';
          
          // when testing iframe versions directly from Edge Animate use this:
-         //var site_url = 'http://localhost:54321';
+         var site_url = 'http://127.0.0.1:54321';
          
          
          
@@ -53,7 +53,7 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // aliases for commonl
          
          
          // youtube video reference to be used throughout
-         var player;
+         var player = undefined;
          
          
          // event handler for when the youtube video plays or pauses
@@ -70,6 +70,24 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // aliases for commonl
          }
          
          
+         // the youtube API sends no events at all on seek,
+         // so unfortunately we have to poll the video if 
+         // we want to react to when the user seeks manually. :(
+         function updatePlayback() {
+         	if (player && player.getCurrentTime) {
+         		var t = player.getCurrentTime() * 1000;
+         		var state = player.getPlayerState();
+         		var dt = sym.getPosition() - t;
+         		// match up times if discrepancy exceeds some tolerance
+         		var tolerance = 500; //ms
+         		if (Math.abs(dt) > tolerance) {
+         			if (state==1)	{ sym.play(t); }
+         			else 				{ sym.stop(t); }
+         		}
+         	}
+         	requestAnimationFrame(updatePlayback);
+         }
+         requestAnimationFrame(updatePlayback);
          
          
          
